@@ -5,8 +5,11 @@ from scripts.constants import (
     PROCESSED_FILE_DIR,
     RAW_FILE_DIR,
     date_columns,
+    Columns,
 )
 from pathlib import Path
+from sklearn.model_selection import train_test_split
+import math
 
 
 class DataLoader:
@@ -74,3 +77,17 @@ class DataLoader:
         )
         df.to_csv(file_path_to_save)
         print(f"Saved dataframe to {file_path_to_save}")
+
+    def load_stratified_sample(self, n_samples=1000):
+        df = pd.read_csv(
+            self.cleaned_complaints_file_path,
+        )
+
+        stratified_sample, _ = train_test_split(
+            df,
+            test_size=0.2,
+            stratify=df[Columns.PRODUCT.value],
+            random_state=42,
+        )
+
+        return stratified_sample

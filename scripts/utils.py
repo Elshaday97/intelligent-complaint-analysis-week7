@@ -1,5 +1,13 @@
 import re
 import string
+import nltk
+
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+
+nltk.download("punkt_tab")
+nltk.download("wordnet")
 
 
 def clean_text(text: str) -> str:
@@ -44,3 +52,25 @@ def clean_text(text: str) -> str:
     text = " ".join(text.split())
 
     return text
+
+
+def tokenize_and_lemmatize(text: str) -> str:
+    """
+    Tokenizes and lemmatizes the input text.
+    Args:
+        text (str): The input text to process.
+    Returns:
+        str: The processed text after tokenization and lemmatization.
+    """
+    lemmatizer = WordNetLemmatizer()
+    stop_words = set(stopwords.words("english"))
+
+    # Tokenize the text
+    tokens = word_tokenize(text)
+
+    # Lemmatize and remove stop words
+    processed_tokens = [
+        lemmatizer.lemmatize(token) for token in tokens if token not in stop_words
+    ]
+
+    return " ".join(processed_tokens)

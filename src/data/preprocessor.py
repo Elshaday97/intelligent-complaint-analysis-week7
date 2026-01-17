@@ -1,6 +1,6 @@
 import pandas as pd
 from scripts.constants import Columns, product_categories
-from scripts.utils import clean_text
+from scripts.utils import clean_text, tokenize_and_lemmatize
 
 
 class DataPreprocessor:
@@ -43,7 +43,9 @@ class DataPreprocessor:
         """
         self.df = self.df[self.df[Columns.COMPLAINT.value].str.strip().str.len() > 0]
 
-    def clean_customer_feedback(self, df: pd.DataFrame, col: str):
+    def clean_and_normalize_customer_feedback(
+        self, df: pd.DataFrame, col: str, cleaned_col: str, normalized_col: str
+    ) -> pd.DataFrame:
         """
         Cleans the specified text column in the DataFrame using the clean_text function.
         Args:
@@ -52,8 +54,18 @@ class DataPreprocessor:
         Returns:
             pd.DataFrame: DataFrame with the cleaned text column.
         """
-        df[col] = df[col].apply(clean_text)
+        df[cleaned_col] = df[col].apply(clean_text)
+        df[normalized_col] = df[col].apply(tokenize_and_lemmatize)
+
         return df
+
+    def normalize_text_column(self, col: str):
+        """
+        Normalizes the specified text column in the DataFrame by cleaning the text.
+        Args:
+            col (str): The name of the column to normalize.
+        """
+        self.df = self.clean_customer_feedback(self.df, col)
 
     def get_processed_data(self):
         """

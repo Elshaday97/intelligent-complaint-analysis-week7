@@ -30,6 +30,8 @@ class Columns(Enum):
 
 class Processed_Columns(Enum):
     WORD_COUNT = "Word Count"
+    NORMALIZED_COMPLAINT = "Normalized Complaint"
+    CLEANED_COMPLAINT = "Cleaned Complaint"
 
 
 date_columns = [Columns.DATE_RECEIVED.value, Columns.DATE_SENT_TO_COMPANY.value]

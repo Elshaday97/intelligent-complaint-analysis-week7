@@ -78,15 +78,18 @@ class DataLoader:
         df.to_csv(file_path_to_save)
         print(f"Saved dataframe to {file_path_to_save}")
 
-    def load_stratified_sample(self, n_samples=1000):
+    def load_stratified_sample(
+        self, sample_size=0.2, stratify_col=Columns.PRODUCT.value
+    ):
         df = pd.read_csv(
             self.cleaned_complaints_file_path,
         )
 
+        stratify = df[stratify_col]
         stratified_sample, _ = train_test_split(
             df,
-            test_size=0.2,
-            stratify=df[Columns.PRODUCT.value],
+            test_size=sample_size,
+            stratify=stratify,
             random_state=42,
         )
 

@@ -117,5 +117,5 @@ class RAGSystem:
         return response.content
 
 
-rag_sys = RAGSystem()
-rag_sys.initiate_chat()
+# rag_sys = RAGSystem()
+# rag_sys.initiate_chat()

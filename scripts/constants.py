@@ -7,7 +7,8 @@ RAW_COMPLAINTS_DATA_FILE_NAME = "complaints.csv"
 CLENAED_COMPLAINTS_DATA_FILE_NAME = "complaints_clean.csv"
 
 VECTOR_STORE_PATH = "../vector_store"
-EMBEDDED_COMPLAINTS_FILE_PATH = RAW_FILE_DIR + "complaint_embeddings.parquet"
+EMBEDDED_VECTOR_STORE_PATH = "../vector_store/embedded"
+EMBEDDED_COMPLAINTS_FILE_PATH = "../data/raw/complaint_embeddings.parquet"
 
 
 class Columns(Enum):
@@ -35,6 +36,13 @@ class Processed_Columns(Enum):
     WORD_COUNT = "Word Count"
     NORMALIZED_COMPLAINT = "Normalized Complaint"
     CLEANED_COMPLAINT = "Cleaned Complaint"
+
+
+class Embedding_Columns(Enum):
+    ID = "id"
+    DOCUMENT = "document"
+    EMBEDDING = "embedding"
+    METADATA = "metadata"
 
 
 date_columns = [Columns.DATE_RECEIVED.value, Columns.DATE_SENT_TO_COMPANY.value]

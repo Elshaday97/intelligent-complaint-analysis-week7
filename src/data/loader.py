@@ -94,3 +94,23 @@ class DataLoader:
         )
 
         return stratified_sample
+
+    def load_from_parquet(self, path) -> pd.DataFrame:
+        """
+        Loads complaint data from a parquet file into a Pandas DataFrame.
+        Args:
+        Returns:
+            pd.DataFrame: DataFrame containing the complaint data.
+        Raises:
+            FileNotFoundError: If the specified file does not exist.
+            ValueError: If the loaded DataFrame is empty.
+        """
+
+        if not Path(path).exists:
+            raise FileNotFoundError(f"File {path} not found")
+        df = pd.read_parquet(path)
+        print(f"Loaded {path} to Dataframe!")
+        if df.empty:
+            raise ValueError("Dataframe is empty. Please select another file")
+
+        return df

@@ -7,6 +7,7 @@ RAW_COMPLAINTS_DATA_FILE_NAME = "complaints.csv"
 CLENAED_COMPLAINTS_DATA_FILE_NAME = "complaints_clean.csv"
 
 VECTOR_STORE_PATH = "../vector_store"
+EMBEDDED_COMPLAINTS_FILE_PATH = RAW_FILE_DIR + "complaint_embeddings.parquet"
 
 
 class Columns(Enum):
